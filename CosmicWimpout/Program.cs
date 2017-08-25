@@ -13,14 +13,57 @@ namespace CosmicWimpout
             WhiteDie fourthWhiteDie = new WhiteDie();
             BlackDie blackDie = new BlackDie();
             DieRoller myDieRoller = new DieRoller();
+            ScoreKeeper myScoreKeeper = new ScoreKeeper();
+            DiceHandler myDiceHandler = new DiceHandler();
             string rollOutput = "";
-
+            string userInput = "";
+            Boolean quitGame = false;
+            int myScore = 0;
             ArrayList diceToRoll = new ArrayList();
+            ArrayList allDice = new ArrayList();
+
+            //Initially add all dice into diceToRoll and allDice ArrayLists
             diceToRoll.Add(firstWhiteDie);
+            allDice.Add(firstWhiteDie);
             diceToRoll.Add(secondWhiteDie);
+            allDice.Add(secondWhiteDie);
             diceToRoll.Add(thirdWhiteDie);
+            allDice.Add(thirdWhiteDie);
             diceToRoll.Add(fourthWhiteDie);
+            allDice.Add(fourthWhiteDie);
             diceToRoll.Add(blackDie);
+            allDice.Add(blackDie);
+
+            Console.WriteLine("Welcome to Cosmic Wimpout!");
+            Console.WriteLine();
+
+            while(!quitGame)
+            {
+                Console.WriteLine("What would you like to do?");
+                Console.WriteLine("(S)how current dice, (V)iew score, (L#)ock die #, (R)oll unlocked dice, (Q)uit");
+                userInput = Console.ReadLine();
+                switch(userInput.ToUpper())
+                {
+
+                    case "Q":
+                        quitGame = true;
+                        break;
+                    case "V":
+                        myScoreKeeper.DisplayScore(myScore);
+                        break;
+                    case "S":
+                        myDiceHandler.ShowDiceValues(allDice);
+                        break;
+                    case "L1":
+                    case "L2":
+                    case "L3":
+                    case "L4":
+                    case "L5":
+                        break;
+                    case "R":
+                        break;
+                }
+            }
 
             myDieRoller.RollDice(diceToRoll);
 
@@ -39,6 +82,7 @@ namespace CosmicWimpout
         protected string dieValue = "";
         protected string[] dieSides = new string[NUMBER_OF_SIDES];
         protected const int NUMBER_OF_SIDES = 6;
+        protected Boolean isLocked;
 
         public void SetDieValue(int valueToSet)
         {
@@ -46,11 +90,17 @@ namespace CosmicWimpout
             {
                 this.dieValue = this.dieSides[valueToSet];
             }
+            isLocked = false;
         }
 
         public string GetDieValue()
         {
             return this.dieValue;
+        }
+
+        public Boolean GetLockedStatus()
+        {
+            return this.isLocked;
         }
     }
 
@@ -93,6 +143,40 @@ namespace CosmicWimpout
                 dieRoll = rndSeed.Next(0, 5);
                 die.SetDieValue(dieRoll);
             }
+        }
+    }
+
+    class ScoreKeeper
+    {
+        //This will need to be greatly expanded for multiple players, but it's a placeholder for now
+
+        public void DisplayScore(int myScore)
+        {
+            Console.WriteLine("Your score is " + myScore);
+        }
+    }
+
+    class DiceHandler
+    {
+        public void ShowDiceValues(ArrayList allDice)
+        {
+            int dieCounter = 0;
+            string showDiceOutput = "";
+            Console.WriteLine();
+            Console.WriteLine("Dice values: (L) = locked die, (U) = unrolled die");
+            
+            foreach(Die die in allDice)
+            {
+                dieCounter++;
+                if (dieCounter > 1 && dieCounter <= 5) showDiceOutput += ", ";
+                showDiceOutput += "[Die " + dieCounter + "]: ";
+                if (String.IsNullOrEmpty(die.GetDieValue())) showDiceOutput += "(U)";
+                else showDiceOutput += die.GetDieValue();
+                if (die.GetLockedStatus()) showDiceOutput += " (L)";
+            }
+
+            Console.WriteLine(showDiceOutput);
+            Console.WriteLine();
         }
     }
 }
