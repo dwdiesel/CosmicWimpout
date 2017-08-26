@@ -16,6 +16,8 @@ namespace CosmicWimpout
                 dieRoll = rndSeed.Next(0, 5);
                 die.SetDieValue(dieRoll);
             }
+            Console.WriteLine();
+            Console.WriteLine(diceToRoll.Count + " dice rolled.");
         }
     }
 }

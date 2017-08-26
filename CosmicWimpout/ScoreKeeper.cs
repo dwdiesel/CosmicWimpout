@@ -10,7 +10,9 @@ namespace CosmicWimpout
 
         public void DisplayScore(int myScore)
         {
+            Console.WriteLine();
             Console.WriteLine("Your score is " + myScore);
+            Console.WriteLine();
         }
     }
 }

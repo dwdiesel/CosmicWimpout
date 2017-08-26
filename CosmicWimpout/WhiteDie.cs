@@ -15,6 +15,8 @@ namespace CosmicWimpout
                 this.dieSides[loadCounter] = sideToLoad;
                 loadCounter++;
             }
+            // Initialize die as unlocked
+            this.IsLocked = false;
         }
     }
 }

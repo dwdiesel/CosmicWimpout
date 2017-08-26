@@ -8,10 +8,15 @@ namespace CosmicWimpout
     abstract class Die
     {
         protected ArrayList sides = new ArrayList();
-        protected string dieValue = "";
+        protected string dieValue;
         protected string[] dieSides = new string[NUMBER_OF_SIDES];
         protected const int NUMBER_OF_SIDES = 6;
         protected Boolean isLocked;
+
+        public string DieValue
+        {
+            get { return this.dieValue; }
+        }
 
         public void SetDieValue(int valueToSet)
         {
@@ -22,14 +27,10 @@ namespace CosmicWimpout
             isLocked = false;
         }
 
-        public string GetDieValue()
+        public Boolean IsLocked
         {
-            return this.dieValue;
-        }
-
-        public Boolean GetLockedStatus()
-        {
-            return this.isLocked;
+            get { return this.isLocked; }
+            set { this.isLocked = value; }
         }
     }
 }

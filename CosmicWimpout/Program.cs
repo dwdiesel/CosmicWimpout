@@ -61,18 +61,12 @@ namespace CosmicWimpout
                     case "L5":
                         break;
                     case "R":
+                        myDieRoller.RollDice(diceToRoll);
+                        myDiceHandler.ShowDiceValues(allDice);
+                        diceToRoll.Clear();
                         break;
                 }
             }
-
-            myDieRoller.RollDice(diceToRoll);
-
-            foreach (Die die in diceToRoll)
-            {
-                rollOutput += die.GetDieValue() + " ";
-            }
-
-            Console.WriteLine("You rolled " + diceToRoll.Count + " dice: " + rollOutput);
         }
     }
 }

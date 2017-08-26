@@ -17,13 +17,26 @@ namespace CosmicWimpout
                 dieCounter++;
                 if (dieCounter > 1 && dieCounter <= 5) showDiceOutput += ", ";
                 showDiceOutput += "[Die " + dieCounter + "]: ";
-                if (String.IsNullOrEmpty(die.GetDieValue())) showDiceOutput += "(U)";
-                else showDiceOutput += die.GetDieValue();
-                if (die.GetLockedStatus()) showDiceOutput += " (L)";
+                if (String.IsNullOrEmpty(die.DieValue)) showDiceOutput += "(U)";
+                else showDiceOutput += die.DieValue;
+                if (die.IsLocked) showDiceOutput += " (L)";
             }
 
             Console.WriteLine(showDiceOutput);
             Console.WriteLine();
+        }
+
+        public void FlashChecker(ArrayList diceToBeChecked)
+        {
+            
+        }
+
+        public void LockDice(ArrayList diceToBeChecked)
+        {
+            foreach(Die die in diceToBeChecked)
+            {
+
+            }
         }
     }
 }
