@@ -29,16 +29,17 @@ namespace CosmicWimpout
                     if (outerLoopCounter == innerLoopCounter) continue;
                     // If this die (indicated by innerLoopCounter) has the same value as the die being checked (indicated by the outerLoopCounter)
                     // or is a Flaming Sun, add it to the diceInAFlash ArrayList because it's part of the potential flash
-                    if ((diceToBeChecked[innerLoopCounter] as Die).DieValue == (diceToBeChecked[outerLoopCounter] as Die).DieValue
-                        || (diceToBeChecked[innerLoopCounter] as Die).DieValue == "Flaming Sun")
+                    if (((diceToBeChecked[innerLoopCounter] as Die).DieValue == (diceToBeChecked[outerLoopCounter] as Die).DieValue)
+                        || ((diceToBeChecked[innerLoopCounter] as Die).DieValue == "Flaming Sun"))
                     {
                         diceInAFlash.Add(diceToBeChecked[innerLoopCounter]);
                     }
+                    if ((diceToBeChecked[innerLoopCounter] as Die).DieValue == "Flaming Sun") flamingSunPresent = true;
                 }
                 // Now we are only interested in the dice in diceInAFlash if there are three or more of them. If there are five, we're only interested
                 // if one of them is a Flaming Sun, otherwise you have a freight train, not a flash.
-                if ((diceInAFlash.Count >= 3 && diceInAFlash.Count < 5) || (diceInAFlash.Count == 5 && !flamingSunPresent)) listOfFlashes.ListOfFlashes = diceInAFlash;
-                // Resent variables before checking the next die
+                if ((diceInAFlash.Count >= 3 && diceInAFlash.Count < 5) || (diceInAFlash.Count == 5 && flamingSunPresent)) listOfFlashes.ListOfFlashes = diceInAFlash;
+                // Reset variables before checking the next die
                 diceInAFlash.Clear();
                 flamingSunPresent = false;
             }
